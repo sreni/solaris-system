@@ -40,7 +40,7 @@ jobs:
          - name: Upload Artifact
            uses: actions/upload-artifact@v4
            with:
-            name: Mocha-Test-Results-${{ matrix.os }}
+            name: Mocha-Test-Results-${{ matrix.os }}-${{ matrix.node-js-version }}
             path: test-results.xml
 
         # - name: Download Artifact
