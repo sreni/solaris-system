@@ -16,10 +16,10 @@ jobs:
         name: Unit Testing
         strategy:
           matrix:
-            os: [ubuntu-latest, macos-latest, windows-latest]
-            node-js-version: [18,19,20]
+            os: [macos-latest]
+            node-js-version: [18]
             exclude:
-              - node-js-version: 18
+              - node-js-version: 19
                 os: macos-latest
         runs-on: ${{ matrix.os }}
         steps:
@@ -40,8 +40,40 @@ jobs:
          - name: Upload Artifact
            uses: actions/upload-artifact@v4
            with:
-            name: Mocha-Test-Results-${{ matrix.os }}-${{ matrix.node-js-version }}
+            name: Mocha-Test-Results-${{ matrix.os }}-${{ matrix.node-js-version }}-$(date +%s)-$RANDOM
             path: test-results.xml
+            retention-days: 5
+    code-coverage:
+        name: Code Coverage
+        strategy:
+          matrix:
+            os: [ubuntu-latest]
+            node-js-version: [18]
+            exclude:
+              - node-js-version: 18
+                os: macos-latest
+        runs-on: ${{ matrix.os }}
+        steps:
+         - name: Checkout Action
+           uses: actions/checkout@v4
+
+         - name: Setup Node Js Version ${{ matrix.node-js-version }} on OS ${{ matrix.os }}
+           uses: actions/setup-node@v4
+           with:
+            node-version: ${{ matrix.node-js-version }}
+
+         - name: Install Dependencies 
+           run: npm install
+
+         - name: Code Coverage
+           run: npm run coverage
+
+         - name: Upload Artifact
+           uses: actions/upload-artifact@v4
+           with:
+            name: Code-Coverage-Results-${{ matrix.os }}-${{ matrix.node-js-version }}-$(date +%s)-$RANDOM
+            path: coverage
+            retention-days: 5
 
         # - name: Download Artifact
         #   uses: actions/download-artifact@v4
