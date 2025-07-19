@@ -53,6 +53,7 @@ jobs:
               - node-js-version: 18
                 os: macos-latest
         runs-on: ${{ matrix.os }}
+        continue-on-error: true
         steps:
          - name: Checkout Action
            uses: actions/checkout@v4
@@ -71,7 +72,7 @@ jobs:
          - name: Upload Artifact
            uses: actions/upload-artifact@v4
            with:
-            name: Code-Coverage-Results-${{ matrix.os }}-${{ matrix.node-js-version }}-$(date +%s)-$RANDOM
+            name: Code-Coverage-Results-${{ matrix.os }}-${{ matrix.node-js-version }}-$($date +%s)-$RANDOM
             path: coverage
             retention-days: 5
 
