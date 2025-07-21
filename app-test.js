@@ -8,7 +8,7 @@ let chaiHttp = require("chai-http");
 chai.should();
 chai.use(chaiHttp); 
 
-/*describe('Planets API Suite', () => {
+describe('Planets API Suite', () => {
 
     describe('Fetching Planet Details', () => {
         it('it should fetch a planet named Mercury', (done) => {
@@ -147,7 +147,7 @@ chai.use(chaiHttp);
 
 
     });        
-});*/
+});
 
 //Use below test case to achieve coverage
 describe('Testing Other Endpoints', () => {
