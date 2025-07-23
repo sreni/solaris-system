@@ -39,7 +39,7 @@ jobs:
            run: npm test
 
          - name: Upload Artifact
-           if: failure() && (steps.unit-testing-step.outputs == 'failure' || steps.unit-testing-step.outputs == 'success')
+           if: failure() && (steps.unit-testing-step.outcome == 'failure' || steps.unit-testing-step.outcome == 'success')
            uses: actions/upload-artifact@v4
            with:
             name: Mocha-Test-Results-${{ matrix.os }}-${{ matrix.node-js-version }}-$(date +%s)-$RANDOM
